@@ -1,0 +1,37 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					li 
+						a(href="http://localhost:3000/home") Halaman Utama
+					li
+						a(href="http://localhost:3000/sample") Lihat Daftar Sampel
+
+		div(class="container")
+			a(href="/dashboard/add", class="btn btn-default") Tambah Spesies
+		p
+
+		div(class="container")
+			table(class="table table-bordered")
+				tr
+					td
+						h3= 'Nama Spesies'
+					td
+						h3= 'Action'
+				for species in data
+					tr
+						td
+							label=species.nama_spesies
+						td
+							//- var url = "/dashboard/" + species.id_spesies
+							//a(href=url) Edit
+							//label &nbsp
+							- var urlDelete = "/dashboard/" + species.id_spesies + "/delete"
+							a(href=urlDelete, class="btn btn-default") Hapus
+
+		

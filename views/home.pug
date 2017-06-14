@@ -1,0 +1,22 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					if(login)
+						li 
+							a(href="/logout") Logout
+					li
+						a(href="http://localhost:3000/sample") Lihat Daftar Sampel
+					if(login)
+						li
+							a(href="http://localhost:3000/fossil") Tambah Data Baru
+						li
+							a(href="http://localhost:3000/dashboard") Tambah Spesies Baru
+					if(!login)
+						li
+							a(href="http://localhost:3000/login") Login

@@ -1,0 +1,64 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					if(login)
+						li
+							a(href="http://localhost:3000/fossil") Tambah Data Baru
+						li
+							a(href="http://localhost:3000/dashboard") Tambah Spesies Baru
+					li
+						a(href="http://localhost:3000/sample") Lihat Daftar Sampel
+					li
+						a(href="http://localhost:3000/species/top10") Ranking Spesies
+					if(!login)
+						li
+							a(href="http://localhost:3000/login") Login
+
+		div(class="container")
+			div(class="row")
+				div(class="col-sm-4")
+					div(class="form-group")
+						form(id="searchForm", method="get", action="/search")
+							input(type='text', name='spesies', value=spesies, placeholder="Cari Berdasarkan Spesies", class="form-control", required)
+							p
+							input(type='text', name='formasi', value=formasi, placeholder="Cari Berdasarkan Formasi", class="form-control", required)
+							p
+							input(type='submit', value='Search', class="btn btn-default")
+    	
+		div(class="container")
+			table(class="table table-bordered table-striped")
+				thead
+					tr
+						th Kode Sample
+						th Formasi
+						th Tanggal
+						th Observer
+						th Nomor Induk
+						th Tujuan
+						th Spesies
+						th Action
+				tbody
+					for sample in data
+						tr
+							td=sample.kode_sample
+							td=sample.formasi
+							td=sample.tanggal
+							td=sample.nama_observer
+							td=sample.nomor_induk
+							td=sample.tujuan
+							td=sample.spesies
+							td
+								- var url = "/sample/" + sample.id_sa
+								a(href=url, class="btn btn-primary") Detail
+								if(login)
+									- var url = "/sample/" + sample.id_obs + "/delete"
+									a(href=url, class="btn btn-danger", style="margin-left : 20px") Hapus
+									- var url = "/sample/" + sample.id_sa + "/edit"
+									a(href=url, class="btn btn-danger", style="margin-left : 20px") Edit

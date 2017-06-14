@@ -1,0 +1,148 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+append styles
+	link(rel="stylesheet",href="styles/print.css",type="text/css",media="print")
+
+block body
+		div(class="container text-center")
+			h2= 'Chart Fossil List'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					li
+						a(href="http://localhost:3000/sample") Lihat Daftar Sampel
+
+		form(class="form-horizontal", id="fossildetail")
+			div(class="container-fluid")
+				div(class="row")
+					div(class="col-md-3")
+						div(class="form-group")
+							label(id="nama_container", class="col-sm-6 control-label") Nama :
+							div(class="col-sm-6")
+								p(id="nama", class="form-control-static")=data.sample.nama_observer
+						
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Nomor Induk :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.nomor_induk
+						
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Tanggal :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.tanggal
+						
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Litologi :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.litologi
+					
+					div(class="col-md-3")
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Formasi :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.formasi
+					
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Lokasi :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.lokasi
+						
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Longitude :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.longitude
+						
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Latitude :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.latitude
+					
+					div(class="col-md-3")
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Kode Sample :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.kode_sample
+					
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Stopsite :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.stopsite
+
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Tujuan :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.tujuan
+					
+					div(class="col-md-3")
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Pengawetan :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.pengawetan
+					
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Kelimpahan :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.kelimpahan
+					
+						div(class="form-group")
+							label(class="col-sm-6 control-label") Preparasi :
+							div(class="col-sm-6")
+								p(class="form-control-static")=data.sample.preparasi
+					
+		
+			div(class="container-fluid")
+				input(type="hidden", name="Species" value=data.umurIdList)
+			
+			table(id="table", class="table table-condensed", style="width:100%")
+				- var n = 0
+				tr
+					td Spesies dan Umur
+					for fossil in data.fossilList
+						td= fossil
+						- n++
+
+				for species in data.speciesList
+					tr
+						td=species.spesies_name
+						
+						for umur in data.umurIdList
+							if species.spesies_name == umur.spesies 
+								- var p = 1
+								- var o = 0
+								while p < n+1	
+									if umur.umur_list[o] == p
+										td &#9607&#9607
+										- o++
+									else 
+										td 
+									- p++
+
+			div(class="well")
+				if(data.kesimpulan!=null) 
+							h3 Rekomendasi :
+							p
+								label Spesies-spesies di atas saling overlap pada zona : &nbsp
+								label=data.kesimpulan.zonaGeo
+
+							p
+								label Sehingga kemungkinan  termasuk pada umur : &nbsp
+								label=data.kesimpulan.umurGeo
+				else
+							h3 Rekomendasi :
+							label Tidak ada overlap yang mencakup keseluruhan spesies di atas
+						
+
+		div(class="container")
+			input(id="printbutton", type="button", class="btn btn-default", value="Cetak Halaman Ini", onClick="window.print()")
+		p
+
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.js")
+		script(src="https://cdnjs.cloudflare.com/ajax/libs/TableExport/3.2.5/js/tableexport.js")
+		
+		
+		script(type="text/javascript").
+			function exportToExcel() {
+				var jQuery = $.noConflict(true);
+				jQuery('#table').tableExport();
+			}

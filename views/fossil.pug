@@ -1,0 +1,117 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+append head
+		link(rel='stylesheet', href='fossil/jquery-ui.css')
+		script(src='fossil/jquery-ui.js')
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					li
+						a(href="http://localhost:3000/home") Halaman Utama
+
+		form(method="post", action="/fossil/preview")
+
+			div(class="container")
+					div(class="row")
+						div(class="col-sm-4")
+							h2 Observer :
+
+							div(class="form-group")
+								label Name
+								input(type="text", placeholder="Nama", name="Nama", class="form-control")
+
+							div(class="form-group")
+								label ID Number
+								input(type="text", placeholder="Nomor Induk", name="NomorInduk", class="form-control")
+
+							div(class="form-group")
+								label Tanggal
+								input(type="date", placeholder="YYYY-MM-DD (Angka Semua)", id="datepicker", name="Tanggal", class="form-control")
+		
+						div(class="col-sm-4")
+
+							h2 Studi Area :
+
+							div(class="form-group")
+								label Lokasi
+								textarea(name="Alamat", class="form-control")
+
+							div(class="form-group")
+								label Litologi
+								input(type="text", placeholder="Litologi", name="Litologi", class="form-control")
+
+							div(class="form-group")
+								label Formasi
+								input(type="text", placeholder="Formasi", name="Formasi", class="form-control")
+
+							div(class="form-group")
+								label Longitude
+								input(type="text", placeholder="Longitude", name="Longitude", class="form-control")
+
+							div(class="form-group")
+								label Latitude
+								input(type="text", placeholder="Latitude", name="Latitude", class="form-control")
+
+						div(class="col-sm-4")
+
+							h2 Detail Sample :
+
+							div(class="form-group")
+								label Kode Sample
+								input(type="text", placeholder="Kode Sample", name="KodeSample", class="form-control")
+
+							div(class="form-group")
+								label Stopsite
+								input(type="text", placeholder="Stopsite", name="Stopsite", class="form-control")
+
+							div(class="form-group")
+								label Pengawetan
+								select(name="Pengawetan", class="form-control")
+									option(value="Jelek") Jelek
+									option(value="Sedang") Sedang
+									option(value="Bagus") Bagus
+
+							div(class="form-group")
+								label Kelimpahan
+								select(name="Kelimpahan", class="form-control")
+									option(value="Kosong") Kosong
+									option(value="Jarang") Jarang
+									option(value="Beberapa") Beberapa
+									option(value="Umum") Umum
+									option(value="Melimpah") Melimpah
+
+							div(class="form-group")
+								label Preparasi
+								select(name="Preparasi", class="form-control")
+									option(value="Ayakan") Ayakan
+									option(value="Asahan") Asahan
+									option(value="Smear") Smear
+									option(value="LainLain") Lain-Lain
+
+							div(class="form-group")
+								label Tujuan
+								input(type="text", placeholder="Tujuan", name="Tujuan", class="form-control")
+
+
+
+			div(class="container table-responsive")
+				table(class="table table-condensed")
+					- var n = 0
+					tr
+						
+
+					for species in data.speciesList
+						tr
+							td 
+								input(type="checkbox", name="Species", value=species.id_spesies) 
+								label=species.spesies_name
+									
+										
+
+			div(class="container")
+				input(type="submit", class="btn btn-success btn-lg", style="margin : 10px 10px 10px 0px", value="Berikut")
+			p

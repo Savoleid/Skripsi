@@ -1,0 +1,139 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+append head
+		link(rel='stylesheet', href='fossil/jquery-ui.css')
+		script(src='fossil/jquery-ui.js')
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					li
+						a(href="http://localhost:3000/home") Halaman Utama
+
+		form(method="post", action="/sample/update")
+
+			div(class="container")
+					div(class="row")
+						div(class="col-sm-4")
+							input(type="hidden", name="id_sa", value=sample.id_sa)
+							input(type="hidden", name="id_sample", value=sample.id_sample)
+							input(type="hidden", name="id_obs", value=sample.id_obs)
+							h2 Observer :
+
+							div(class="form-group")
+								label Name
+								input(type="text", placeholder="Nama", name="Nama", class="form-control", value=sample.nama_observer)
+
+							div(class="form-group")
+								label ID Number
+								input(type="text", placeholder="Nomor Induk", name="NomorInduk", class="form-control", value=sample.nomor_induk)
+
+							div(class="form-group")
+								label Tanggal
+								input(type="date", placeholder="YYYY-MM-DD (Angka Semua)", id="datepicker", name="Tanggal", class="form-control", value=sample.tanggal)
+		
+						div(class="col-sm-4")
+
+							h2 Studi Area :
+
+							div(class="form-group")
+								label Lokasi
+								textarea(name="Alamat", class="form-control")=sample.lokasi
+
+							div(class="form-group")
+								label Litologi
+								input(type="text", placeholder="Litologi", name="Litologi", class="form-control", value=sample.litologi)
+
+							div(class="form-group")
+								label Formasi
+								input(type="text", placeholder="Formasi", name="Formasi", class="form-control", value=sample.formasi)
+
+							div(class="form-group")
+								label Longitude
+								input(type="text", placeholder="Longitude", name="Longitude", class="form-control", value=sample.longitude)
+
+							div(class="form-group")
+								label Latitude
+								input(type="text", placeholder="Latitude", name="Latitude", class="form-control", value=sample.latitude)
+
+						div(class="col-sm-4")
+
+							h2 Detail Sample :
+
+							div(class="form-group")
+								label Kode Sample
+								input(type="text", placeholder="Kode Sample", name="KodeSample", class="form-control", value=sample.kode_sample)
+
+							div(class="form-group")
+								label Stopsite
+								input(type="text", placeholder="Stopsite", name="Stopsite", class="form-control", value=sample.stopsite)
+
+							div(class="form-group")
+								label Pengawetan
+								select(name="Pengawetan", class="form-control")
+									if(sample.pengawetan == "Jelek") 
+										option(value="Jelek", selected) Jelek
+									else 
+										option(value="Jelek") Jelek
+									if(sample.pengawetan == "Sedang")
+										option(value="Sedang", selected) Sedang
+									else 
+										option(value="Sedang") Sedang
+									if(sample.pengawetan == "Bagus")
+										option(value="Bagus", selected) Bagus
+									else 
+										option(value="Bagus") Bagus
+
+							div(class="form-group")
+								label Kelimpahan
+								select(name="Kelimpahan", class="form-control")
+									if(sample.kelimpahan == "Kosong")
+										option(value="Kosong", selected) Kosong
+									else 
+										option(value="Kosong") Kosong
+									if(sample.kelimpahan == "Jarang")
+										option(value="Jarang", selected) Jarang
+									else
+										option(value="Jarang") Jarang
+									if(sample.kelimpahan == "Beberapa")
+										option(value="Beberapa", selected) Beberapa
+									else
+										option(value="Beberapa") Beberapa
+									if(sample.kelimpahan == "Umum")
+										option(value="Umum", selected) Umum
+									else
+										option(value="Umum") Umum
+									if(sample.kelimpahan == "Melimpah")
+										option(value="Melimpah", selected) Melimpah
+									else
+										option(value="Melimpah") Melimpah
+
+							div(class="form-group")
+								label Preparasi
+								select(name="Preparasi", class="form-control")
+									if(sample.preparasi == "Ayakan")
+										option(value="Ayakan", selected) Ayakan
+									else
+										option(value="Ayakan") Ayakan
+									if(sample.preparasi == "Asahan")
+										option(value="Asahan", selected) Asahan
+									else
+										option(value="Asahan") Asahan
+									if(sample.preparasi == "Smear")
+										option(value="Smear", selected) Smear
+									else
+										option(value="Smear") Smear
+									if(sample.preparasi == "LainLain")
+										option(value="LainLain", selected) Lain-Lain
+									else
+										option(value="LainLain") Lain-Lain
+							div(class="form-group")
+								label Tujuan
+								input(type="text", placeholder="Tujuan", name="Tujuan", class="form-control", value=sample.tujuan)
+
+					div(class="container")
+						input(type="submit", class="btn btn-success btn-lg", value="Simpan")
+					p

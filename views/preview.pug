@@ -1,0 +1,150 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+
+block body
+		h2= 'Chart Fossil List Application'
+		form(method="post", action="/fossil/save")
+
+			nav(class="navbar navbar-default")
+				div(class="container-fluid")
+					ul(class="nav navbar-nav")
+						li
+							a(href="http://localhost:3000/fossil") Kembali ke Data Baru
+
+			div(class="container")
+				div(class="form-horizontal")
+					div(class="row")
+						div(class="col-sm-4")
+							
+							div(class="form-group")
+								label(class="col-md-4 control-label") Nama :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.nama
+									input(type="hidden", value=data.data.nama, name="Nama")
+							
+							div(class="form-group")
+								label(class="col-md-4 control-label") Nomor Induk :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.nomor_induk
+									input(type="hidden", value=data.data.nomor_induk, name="NomorInduk")
+							
+							div(class="form-group")
+								label(class="col-md-4 control-label") Tanggal :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.tanggal
+									input(type="hidden", value=data.data.tanggal, name="Tanggal")
+							
+							div(class="form-group")
+								label(class="col-md-4 control-label") Litologi :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.litologi
+									input(type="hidden", value=data.data.litologi, name="Litologi")
+							
+							div(class="form-group")
+								label(class="col-md-4 control-label") Formasi :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.formasi
+									input(type="hidden", value=data.data.formasi, name="Formasi")
+						
+						div(class="col-sm-4")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Alamat :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.alamat
+									input(type="hidden", value=data.data.alamat, name="Alamat")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Longitude :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.longitude
+									input(type="hidden", value=data.data.longitude, name="Longitude")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Latitude :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.latitude
+									input(type="hidden", value=data.data.latitude, name="Latitude")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Kode Sample :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.kode_sample
+									input(type="hidden", value=data.data.kode_sample, name="KodeSample")
+						
+						div(class="col-sm-4")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Stopsite :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.stopsite
+									input(type="hidden", value=data.data.stopsite, name="Stopsite")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Pengawetan :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.pengawetan
+									input(type="hidden", value=data.data.pengawetan, name="Pengawetan")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Kelimpahan :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.kelimpahan
+									input(type="hidden", value=data.data.kelimpahan, name="Kelimpahan")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Preparasi :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.preparasi
+									input(type="hidden", value=data.data.preparasi, name="Preparasi")
+						
+							div(class="form-group")
+								label(class="col-md-4 control-label") Tujuan :
+								div(class="col-md-8")
+									p(class="form-control-static")=data.data.tujuan
+									input(type="hidden", value=data.data.tujuan, name="Tujuan")
+				
+				div(class="container table-responsive")
+					input(type="hidden", name="Species" value=data.umurIdList)
+					table(class="table table-condensed")
+						- var n = 0
+						tr
+							td Spesies Age
+							for fossil in data.fossilList
+								td= fossil
+								- n++
+
+						for species in data.speciesList
+							tr
+								td 
+									label=species.spesies_name
+								
+								for umur in data.umurIdList
+									if species.spesies_name == umur.spesies 
+										- var p = 1
+										- var o = 0
+										while p < n+1	
+											if umur.umur_list[o] == p
+												td &#9607&#9607
+												- o++
+											else 
+												td
+											- p++
+				
+				div(class="well")
+					if(data.kesimpulan!=null) 
+						h3 Rekomendasi :
+						p
+							label Spesies-spesies di atas saling overlap pada zona : &nbsp
+							label=data.kesimpulan.zonaGeo
+							label . 
+
+						p
+							label Sehingga kemungkinan  termasuk pada umur : 
+							label=data.kesimpulan.umurGeo
+					else
+						h3 Rekomendasi :
+						label Tidak ada overlap yang mencakup keseluruhan spesies di atas
+
+				div(class="container")
+					input(type="submit", class="btn btn-success btn-lg", value="Simpan")
+				p

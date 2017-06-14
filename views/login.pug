@@ -1,0 +1,34 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					li
+						a(href="http://localhost:3000/home") Halaman Utama
+
+		form(method="post", action="/login")
+
+			div(class="container")
+					div(class="row")
+						div(class="col-sm-4")
+							h2 Login
+
+							div(class="form-group")
+								label Username
+								input(type="text", placeholder="Username", name="user", class="form-control")
+
+							div(class="form-group")
+								label Password
+								input(type="password", placeholder="Password", name="password", class="form-control")
+							if(error!=null)
+								div(class="form-group")
+									label=error
+			
+
+			div(class="container")
+				input(type="submit", class="btn btn-default", margin="100px 150px 100px 80px", value="Masuk")
+			p

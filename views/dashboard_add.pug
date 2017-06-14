@@ -1,0 +1,32 @@
+extends ../node_modules/pug-bootstrap/layouts/starter
+
+block body
+		div(class="jumbotron text-center")
+			h1= 'Chart Fossil List Application'
+
+		nav(class="navbar navbar-default")
+			div(class="container-fluid")
+				ul(class="nav navbar-nav")
+					li
+						a(href="http://localhost:3000/dashboard") Kembali ke Daftar Spesies
+
+		div(class="container text-center")
+			h2= 'Tambahkan Spesies Baru'
+
+		div(class="container text-center col-md-2")
+			form(method="post", action="save")
+				div(class="form-group")
+					label Masukkan Nama Spesies
+					input(type="text", placeholder="Nama Spesies", name="nama_spesies", class="form-control")
+				div(class="form-group")
+					Label Umur Awal
+					select(name="umur_awal", class="form-control")
+						for umur in data
+							option(value=umur.id_umur) #{umur.zona_geo}
+				div(class="form-group")
+					Label Umur Akhir
+					select(name="umur_akhir", class="form-control")
+						for umur in data
+							option(value=umur.id_umur) #{umur.zona_geo}
+				div(class="form-group")
+					input(type="submit", class="btn btn-default", value="Simpan")
